@@ -1,4 +1,4 @@
-""" Import flask and modules """
+""" app.py"""
 from flask import Flask, jsonify, request
 
 APP = Flask(__name__)
@@ -12,9 +12,12 @@ REQUESTS = [{'id':1, 'date':'2018-8-12', 'request':'Request1', 'status':'pending
 @APP.route('/api/v1/users/requests/<request_id>', methods=['GET'])
 def get_one_request(request_id):
     """ Returns single request """
+
     request_found = [request for request in REQUESTS if request['id'] == int(request_id)]
+
     if request_found:
         return jsonify({'request':request_found[0]})
+
     return "Request not found!"
 
 if __name__ == '__main__':
