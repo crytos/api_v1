@@ -6,7 +6,6 @@ from app import APP
 class FlaskTestCase(unittest.TestCase):
     """Test for app.py"""
     
-    #passes
     def test_get_one_request(self):
         """test get one request"""
 
@@ -20,7 +19,6 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Request modified succesfully", response.data)
     
-    #failed
     def test_failed_get_one_request(self):
         """test not found request to modify"""
 
