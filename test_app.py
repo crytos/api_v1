@@ -6,32 +6,30 @@ from app import APP
 class FlaskTestCase(unittest.TestCase):
     """Test for app.py"""
 
-    # Ensure that Flask was set up correctly
-    def test_get_one_request(self):
+    def test_create_new_request(self):
         """test get one request"""
 
         tester = APP.test_client(self)
 
-        response = tester.put(
-            '/api/v1/users/requests/1',
-            data=json.dumps({"request":"helo"}), content_type="application/json"
-        )
+        response = tester.post(
+            '/api/v1/users/requests',
+            data=json.dumps({'request':'Request5', 'status':'pending', 'user':'josh'}),
+            content_type="application/json", follow_redirects=False)
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Request modified succesfully", response.data)
+        self.assertIn(b"Request added!", response.data)
 
-    # Ensure that Flask was not set up correctly
-    def test_failed_get_one_request(self):
-        """test not found request to modify"""
+    def test_create_new_request_invalid(self):
+        """test invalid sent request"""
 
         tester = APP.test_client(self)
 
-        response = tester.put(
-            '/api/v1/users/requests/23',
-            data=json.dumps({"request":"helo"}), content_type="application/json"
-        )
+        response = tester.post(
+            '/api/v1/users/requests',
+            data=json.dumps({'request':'', 'status':'pending', 'user':''}),
+            content_type="application/json", follow_redirects=False)
 
-        self.assertIn(b"Request not found!", response.data)
+        self.assertIn(b"Invalid request", response.data)
 
 if __name__ == '__main__':
     unittest.main()

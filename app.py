@@ -9,17 +9,24 @@ REQUESTS = [{'id':1, 'date':'2018-8-12', 'request':'Request1', 'status':'pending
             {'id':3, 'date':'2018-8-9', 'request':'Request3', 'status':'resolved', 'user':'nakki'},
             {'id':4, 'date':'2018-8-1', 'request':'Request4', 'status':'rejected', 'user':'josh'}]
 
-@APP.route('/api/v1/users/requests/<request_id>', methods=['PUT'])
-def modify_request(request_id):
-    """ modifies a request """
+@APP.route('/api/v1/users/requests', methods=['POST'])
+def create_new_request():
+    """ adds a new request """
 
-    request_to_be_modified = [request for request in REQUESTS if request['id'] == int(request_id)]
+    if request.json['request'] and request.json['user']:
 
-    if request_to_be_modified:
-        request_to_be_modified[0]['request'] = request.json['request']
-        return "Request modified succesfully"
+        request_to_be_added = {
+            'id':5,
+            'date':'2018-9-12',
+            'request':request.json['request'],
+            'status':request.json['status'],
+            'user':request.json['user']
+        }
 
-    return "Request not found!"
+        REQUESTS.append(request_to_be_added)
+        return "Request added!"
+
+    return "Invalid request"
 
 if __name__ == '__main__':
     APP.run(debug=True)
