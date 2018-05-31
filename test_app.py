@@ -5,7 +5,6 @@ from app import APP
 class FlaskTestCase(unittest.TestCase):
     """Test for app.py"""
 
-    # Ensure that Flask was set up correctly
     def test_get_all_request(self):
         """test get all requests"""
 
