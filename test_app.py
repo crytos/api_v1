@@ -1,4 +1,4 @@
-"""tests/test_basic.py"""
+"""tests_app.py"""
 import unittest
 import json
 from app import APP
