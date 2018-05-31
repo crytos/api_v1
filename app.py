@@ -1,4 +1,4 @@
-""" Import flask and modules """
+"""app.py"""
 from flask import Flask, request
 
 APP = Flask(__name__)
